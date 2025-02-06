@@ -4,6 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const mongoose = require('mongoose');
+
+mongoose.connect("mongodb+srv://cluster0.er0sq.mongodb.net/")
+  .then(() => console.log('Connected!'));
+
+
 var estudiantes = require("./routes/estudiantes");
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
