@@ -1,4 +1,8 @@
 //aqui se hacen las funciones
+import express from 'express'
+import mongoose from 'mongoose';
+import Gremio from "../db/schema.js"; 
+
 
 const ide =1;
 const names= "Arkus";
@@ -8,16 +12,12 @@ const statuses = 1;
 
 const errorMessages = [];
 
-const { request, response } = require('../app');
 
-
- async function AddGremio (request,response){
+ const  AddGremio = async (request,response) => {
     
     const{Id,name,house,cantidad,status} = request.body;
-
-    if(Id==ide){
-        errorMessages.push("La id ya existe!");
-    }
+    await mongoose.connect('mongodb://127.0.0.1/my_database');
+   
     if(name==names){
         errorMessages.push("El nombre ya existe!");
     }if(house==houses){
@@ -33,7 +33,20 @@ const { request, response } = require('../app');
           details: errorMessages,
         });
       } else {
+        
+        const newGremio = new Gremio({ 
+          _id: new mongoose.Types.ObjectId(),
+          Name: name,
+          House: house,
+          CantidadMiembros: cantidad,
+          Status: status
+      });
+      
+        
+        await newGremio.save();
+
         response.status(201).send({
+
 
             message: "agregado con exito", Id   
          });
@@ -115,4 +128,5 @@ async function getGremio(request, response) {
 }
 
 
-module.exports={AddGremio,updateName,deleteGremio,getGremio}
+// module.exports={AddGremio}
+  //,updateName,deleteGremio,getGremio}
