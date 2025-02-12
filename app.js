@@ -10,7 +10,7 @@ mongoose.connect("mongodb+srv://cluster0.er0sq.mongodb.net/")
   .then(() => console.log('Connected!'));
 
   require('dotenv').config()
-  console.log(process.env) // remove this after you've confirmed it is working
+ // console.log(process.env) // remove this after you've confirmed it is working
   
 
 var estudiantes = require("./routes/estudiantes");
